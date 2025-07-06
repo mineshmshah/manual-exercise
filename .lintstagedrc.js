@@ -13,4 +13,7 @@ const buildEslintCommand = (filenames) =>
 module.exports = {
   "*.{js,jsx,ts,tsx}": [buildEslintCommand, "prettier --write"],
   "*.{css,md}": ["prettier --write"],
+  "**/*.{test,spec}.{js,jsx,ts,tsx}": [
+    "yarn test --findRelatedTests --passWithNoTests",
+  ],
 };
