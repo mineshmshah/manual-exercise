@@ -10,43 +10,45 @@ describe("Home", () => {
     expect(main).toBeInTheDocument();
   });
 
-  it("renders the Next.js logo", () => {
+  it("renders the Manual logo", () => {
     render(<Home />);
 
-    const logo = screen.getByAltText("Next.js logo");
+    const logo = screen.getByAltText("Manual Logo");
 
     expect(logo).toBeInTheDocument();
   });
 
-  it("renders the getting started text", () => {
+  it("renders the hero heading", () => {
     render(<Home />);
 
-    const gettingStartedText = screen.getByText(/get started by editing/i);
+    const heading = screen.getByRole("heading", {
+      name: /be good to yourself/i,
+    });
 
-    expect(gettingStartedText).toBeInTheDocument();
+    expect(heading).toBeInTheDocument();
   });
 
-  it("renders the deploy link", () => {
+  it("renders the hero description", () => {
     render(<Home />);
 
-    const deployLink = screen.getByRole("link", { name: /deploy now/i });
+    const description = screen.getByText(/working around the clock/i);
 
-    expect(deployLink).toBeInTheDocument();
-    expect(deployLink).toHaveAttribute(
-      "href",
-      expect.stringContaining("vercel.com"),
-    );
+    expect(description).toBeInTheDocument();
   });
 
-  it("renders the docs link", () => {
+  it("renders the CTA button", () => {
     render(<Home />);
 
-    const docsLink = screen.getByRole("link", { name: /read our docs/i });
+    const ctaButton = screen.getByRole("button", { name: /take the quiz/i });
 
-    expect(docsLink).toBeInTheDocument();
-    expect(docsLink).toHaveAttribute(
-      "href",
-      expect.stringContaining("nextjs.org/docs"),
-    );
+    expect(ctaButton).toBeInTheDocument();
+  });
+
+  it("renders the hero background image", () => {
+    render(<Home />);
+
+    const heroImage = screen.getByAltText("Hero background");
+
+    expect(heroImage).toBeInTheDocument();
   });
 });

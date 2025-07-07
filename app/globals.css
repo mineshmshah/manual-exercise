@@ -17,6 +17,7 @@
   --color-grandfather-light: #e8efe9; /* Grandfather (-60%) - page bg */
   --color-grandfather-dark: #6d8a83; /* Grandfather (+30%) - secondary text */
   --color-grandfather-lightest: #f3f7f4; /* Grandfather (-80%) - large numbers */
+  --color-grandfather-darkest: #a7b69f; /* Grandfather (+60%) - Hero abd Image Background */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,4 +31,9 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: "TT Norms", system-ui, sans-serif;
+}
+
+/*Custom Breakpoints to stop jumping text */
+@theme {
+  --breakpoint-2xl: 85rem;
 }
