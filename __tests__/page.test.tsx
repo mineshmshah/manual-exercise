@@ -10,12 +10,14 @@ describe("Home", () => {
     expect(main).toBeInTheDocument();
   });
 
-  it("renders the Manual logo", () => {
+  it("renders the Manual logos", () => {
     render(<Home />);
 
-    const logo = screen.getByAltText("Manual Logo");
+    const logos = screen.getAllByAltText("Manual Logo");
 
-    expect(logo).toBeInTheDocument();
+    expect(logos).toHaveLength(2); // One in hero, one in footer
+    expect(logos[0]).toBeInTheDocument();
+    expect(logos[1]).toBeInTheDocument();
   });
 
   it("renders the hero heading", () => {

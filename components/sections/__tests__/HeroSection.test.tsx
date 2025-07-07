@@ -7,13 +7,18 @@ jest.mock("next/image", () => ({
   default: (props: {
     src: string;
     alt: string;
-    width: number;
-    height: number;
+    width?: number;
+    height?: number;
+    fill?: boolean;
     className?: string;
-  }) => (
-    // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-    <img {...props} />
-  ),
+  }) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { fill, ...imgProps } = props;
+    return (
+      // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
+      <img {...imgProps} />
+    );
+  },
   getImageProps: jest.fn(() => ({
     props: {
       srcSet: "/images/hero-bg.png 1x, /images/hero-bg.png 2x",
@@ -90,9 +95,9 @@ describe("HeroSection", () => {
   it("shows mobile image on small screens", () => {
     render(<HeroSection />);
     const mobileImage = screen.getByAltText("Hero background");
-    expect(mobileImage).toHaveClass("h-auto", "min-h-[300px]");
-    // Check that the parent div has md:hidden class
-    const imageContainer = mobileImage.closest("div");
-    expect(imageContainer).toHaveClass("md:hidden");
+    expect(mobileImage).toHaveClass("object-cover", "object-right");
+    // Check that the outer container has md:hidden class
+    const outerContainer = mobileImage.parentElement?.parentElement;
+    expect(outerContainer).toHaveClass("md:hidden");
   });
 });

@@ -4,10 +4,10 @@ import Image from "next/image";
 
 export default function HeroSection() {
   return (
-    <section className="w-full overflow-hidden bg-(--color-grandfather-lightest) md:aspect-[1440/750] md:max-h-[750px] md:bg-[url('/images/hero-bg.png')] md:bg-cover md:bg-center md:bg-no-repeat">
-      <div className="flex h-full w-full flex-col px-8 py-8 md:w-1/2 lg:px-30">
+    <section className="min-h-[400px] w-full overflow-hidden bg-(--color-grandfather-lightest) md:aspect-[1440/750] md:max-h-[750px] md:bg-[url('/images/hero-bg.png')] md:bg-cover md:bg-center md:bg-no-repeat">
+      <div className="flex h-full w-full flex-col items-center justify-center px-8 py-8 md:w-1/2 md:items-start lg:px-30">
         {/* Logo at top */}
-        <div>
+        <div className="pb-2">
           <Logo size="small" />
         </div>
 
@@ -31,13 +31,14 @@ export default function HeroSection() {
 
       {/* Image block for small screens only */}
       <div className="flex w-full justify-end md:hidden">
-        <Image
-          src="/images/hero-bg.png"
-          alt="Hero background"
-          width={400}
-          height={300}
-          className="h-auto min-h-[300px] object-cover object-right"
-        />
+        <div className="relative min-h-[375px] w-full">
+          <Image
+            src="/images/hero-bg.png"
+            alt="Hero background"
+            fill
+            className="object-cover object-right"
+          />
+        </div>
       </div>
     </section>
   );

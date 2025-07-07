@@ -13,14 +13,14 @@ describe("Logo", () => {
     const { rerender } = render(<Logo size="small" />);
     let logo = screen.getByRole("img");
     expect(logo).toHaveClass("h-10", "w-10");
-    expect(logo).toHaveAttribute("width", "48");
-    expect(logo).toHaveAttribute("height", "48");
+    expect(logo).toHaveAttribute("width", "40");
+    expect(logo).toHaveAttribute("height", "40");
 
     rerender(<Logo size="medium" />);
     logo = screen.getByRole("img");
-    expect(logo).toHaveClass("h-16", "w-16");
-    expect(logo).toHaveAttribute("width", "64");
-    expect(logo).toHaveAttribute("height", "64");
+    expect(logo).toHaveClass("h-18", "w-18");
+    expect(logo).toHaveAttribute("width", "75");
+    expect(logo).toHaveAttribute("height", "75");
 
     rerender(<Logo size="large" />);
     logo = screen.getByRole("img");
@@ -37,8 +37,8 @@ describe("Logo", () => {
   it("uses medium size by default", () => {
     render(<Logo />);
     const logo = screen.getByRole("img");
-    expect(logo).toHaveClass("h-16", "w-16");
-    expect(logo).toHaveAttribute("width", "64");
-    expect(logo).toHaveAttribute("height", "64");
+    expect(logo).toHaveClass("h-18", "w-18");
+    expect(logo).toHaveAttribute("width", "75");
+    expect(logo).toHaveAttribute("height", "75");
   });
 });
