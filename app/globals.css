@@ -30,10 +30,91 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: "TT Norms", system-ui, sans-serif;
 }
 
 /*Custom Breakpoints to stop jumping text */
 @theme {
-  --breakpoint-2xl: 85rem;
+  --breakpoint-2xl: 88rem;
+}
+
+@layer components {
+  /* HeroSection styles */
+  .hero-section {
+    @apply min-h-[400px] w-full overflow-hidden;
+    background-color: var(--color-grandfather-lightest);
+
+    /* Apply background image only on medium screens and up */
+    @media (min-width: 768px) {
+      @apply aspect-[1440/750] max-h-[750px] bg-cover bg-center bg-no-repeat;
+      background-image: var(--hero-bg-image);
+    }
+  }
+
+  /* ContentBlock base styles */
+  .content-block {
+    @apply flex flex-col items-start bg-white p-6;
+    @apply md:flex-row md:gap-10 md:py-8;
+    @apply xl:gap-21 xl:py-17;
+  }
+
+  .content-block--reverse {
+    @apply md:flex-row-reverse;
+  }
+
+  /* ContentBlock image styles */
+  .content-block__image {
+    @apply relative z-10 mb-6 h-[350px] w-full self-center overflow-hidden;
+    @apply md:mb-0 md:h-[356px] md:w-[296px] md:min-w-[296px] md:self-start;
+    @apply xl:h-[445px] xl:w-[370px] xl:min-w-[370px];
+  }
+
+  /* ContentBlock text container styles */
+  .content-block__text {
+    @apply relative flex h-fit min-h-full flex-col justify-center self-center;
+    color: var(--color-father);
+  }
+
+  .content-block__text--reverse {
+    @apply md:pr-6 xl:px-10;
+  }
+
+  .content-block__text--normal {
+    @apply md:pl-6 xl:px-10;
+  }
+
+  /* ContentBlock number styles */
+  .content-block__number {
+    @apply absolute inset-0 z-0 flex items-center justify-center;
+    @apply lg:translate-y-6;
+  }
+
+  .content-block__number--reverse {
+    @apply md:translate-x-15 lg:translate-x-25;
+  }
+
+  .content-block__number--normal {
+    @apply md:-translate-x-20 lg:-translate-x-39;
+  }
+
+  .content-block__number span {
+    @apply text-[250px] font-normal -tracking-[0.03em] select-none;
+    @apply md:text-[350px] xl:text-[450px];
+    color: var(--color-grandfather-lightest);
+  }
+
+  /* MultiRowContent styles */
+  .multi-row-content {
+    @apply flex flex-col items-center justify-center bg-white px-8 pb-[22px];
+    @apply md:px-16 lg:px-45 xl:px-59;
+  }
+
+  .multi-row-content__title {
+    @apply mt-12 text-4xl font-normal;
+    @apply lg:mt-[70px] lg:text-[40px];
+    color: var(--color-father);
+  }
+
+  .multi-row-content__blocks {
+    @apply flex flex-col;
+  }
 }

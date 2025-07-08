@@ -1,11 +1,35 @@
+"use client";
+
 import Logo from "@/components/ui/Logo";
 import Button from "../ui/Button";
 import Image from "next/image";
+import type { HeroSectionData } from "@/types/heroSection";
 
-export default function HeroSection() {
+export default function HeroSection({
+  title,
+  description,
+  button,
+  backgroundImage = "/images/hero-bg.png",
+  backgroundImageAlt = "Hero background",
+}: HeroSectionData) {
+  const handleButtonClick = () => {
+    if (typeof button.action === "function") {
+      button.action();
+    } else if (typeof button.action === "string") {
+      window.location.href = button.action;
+    }
+  };
+
   return (
-    <section className="min-h-[400px] w-full overflow-hidden bg-(--color-grandfather-lightest) md:aspect-[1440/750] md:max-h-[750px] md:bg-[url('/images/hero-bg.png')] md:bg-cover md:bg-center md:bg-no-repeat">
-      <div className="flex h-full w-full flex-col items-center justify-center px-8 py-8 md:w-1/2 md:items-start lg:px-30">
+    <section
+      className="hero-section"
+      style={
+        {
+          "--hero-bg-image": `url('${backgroundImage}')`,
+        } as React.CSSProperties
+      }
+    >
+      <div className="flex h-full w-full flex-col items-center justify-center px-8 py-8 md:w-1/2 md:items-start md:px-16 xl:px-30">
         {/* Logo at top */}
         <div className="pb-2">
           <Logo size="small" />
@@ -15,15 +39,14 @@ export default function HeroSection() {
 
         {/* Content */}
         <div className="flex flex-col justify-center py-8 md:items-start md:py-0">
-          <h1 className="self-center pb-5 text-center text-5xl text-(--color-father) md:self-start md:text-justify md:text-6xl 2xl:text-8xl">
-            Be good <br className="hidden md:inline" /> to yourself
+          <h1 className="self-center pb-5 text-center text-5xl text-(--color-father) md:self-start md:text-left lg:text-6xl xl:text-7xl 2xl:text-8xl">
+            {title}
           </h1>
           <p className="text-md text-(--color-father) xl:text-lg">
-            We’re working around the clock to bring you a holistic approach to
-            your wellness. From top to bottom, inside and out.
+            {description}
           </p>
-          <Button size="small" className="mt-9">
-            TAKE THE QUIZ
+          <Button size="small" className="mt-9" onClick={handleButtonClick}>
+            {button.text}
           </Button>
         </div>
         <div className="flex-grow" />
@@ -33,8 +56,8 @@ export default function HeroSection() {
       <div className="flex w-full justify-end md:hidden">
         <div className="relative min-h-[375px] w-full">
           <Image
-            src="/images/hero-bg.png"
-            alt="Hero background"
+            src={backgroundImage}
+            alt={backgroundImageAlt}
             fill
             className="object-cover object-right"
           />

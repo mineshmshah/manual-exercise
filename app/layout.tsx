@@ -5,7 +5,7 @@ import "./globals.css";
 const ttNorms = localFont({
   src: [
     {
-      path: "../public/fonts/tt_norms_pro_trial_regular-webfont.woff2",
+      path: "../public/fonts/tt_norms_pro_trial_normal-webfont.woff2",
       weight: "400",
       style: "normal",
     },

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "hair-loss",
+    "title": "Hair loss needn't be irreversible. We can help!",
+    "description": "We're working around the clock to bring you a holistic approach to your wellness. From top to bottom, inside and out.",
+    "category": "Hair Loss",
+    "imageSrc": "/images/hairloss.png",
+    "imageAlt": "Hair Loss Treatment"
+  },
+  {
+    "id": "erectile-dysfunction", 
+    "title": "Erections can be a tricky thing. But no need to feel down!",
+    "description": "We're working around the clock to bring you a holistic approach to your wellness. From top to bottom, inside and out.",
+    "category": "Erectile Dysfunction",
+    "imageSrc": "/images/ed.png",
+    "imageAlt": "ED Treatment"
+  }
+]

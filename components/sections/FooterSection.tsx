@@ -30,7 +30,7 @@ export default function FooterSection() {
   ];
 
   return (
-    <footer className="lg: w-full bg-(--color-grandfather-lightest) p-8 lg:px-[138px] lg:py-16">
+    <footer className="w-full bg-(--color-grandfather-lightest) p-8 lg:px-[138px] lg:py-16">
       <div className="mx-auto max-w-[1164px]">
         {/* Main Footer Content */}
         <div className="flex flex-col items-center justify-between gap-12 xl:flex-row xl:gap-24">
