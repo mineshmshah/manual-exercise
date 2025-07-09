@@ -45,16 +45,29 @@ export function quizReducer(state: QuizState, action: QuizAction): QuizState {
       );
       const isLastQuestion = questionIndex === state.questions.length - 1;
 
+      const allQuestionsAnswered =
+        updatedAnswers.length === state.questions.length;
+
+      const isCompleted = isLastQuestion && allQuestionsAnswered;
+
       return {
         ...state,
         answers: updatedAnswers,
-        currentQuestionIndex: isLastQuestion
-          ? questionIndex
-          : questionIndex + 1,
-        isCompleted: isLastQuestion,
+        currentQuestionIndex: hasRejection
+          ? state.currentQuestionIndex
+          : state.currentQuestionIndex + 1,
+        isCompleted: hasRejection || isCompleted,
         isRejected: hasRejection,
       };
     }
+    case "NEXT_QUESTION":
+      if (state.currentQuestionIndex < state.questions.length - 1) {
+        return {
+          ...state,
+          currentQuestionIndex: state.currentQuestionIndex + 1,
+        };
+      }
+      return state;
     case "PREVIOUS_QUESTION":
       return {
         ...state,

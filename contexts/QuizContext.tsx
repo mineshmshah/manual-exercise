@@ -4,7 +4,7 @@ import React, { createContext, useContext, useReducer, ReactNode } from "react";
 import {
   QuizState,
   QuizAction,
-  QuizOption,
+  QuizOptionType,
   QuizQuestion,
   QuizAnswer,
 } from "@/types/quiz";
@@ -16,8 +16,9 @@ interface QuizContextProps {
   // Helper functions for client
   openQuiz: () => void;
   closeQuiz: () => void;
-  answerQuestion: (questionIndex: number, option: QuizOption) => void;
+  answerQuestion: (questionIndex: number, option: QuizOptionType) => void;
   previousQuestion: () => void;
+  nextQuestion: () => void;
   resetQuiz: () => void;
   getCurrentQuestion: () => QuizQuestion;
   getPreviousAnswer: (questionIndex: number) => QuizAnswer | undefined;
@@ -32,9 +33,10 @@ export function QuizProvider({ children }: { children: ReactNode }) {
 
   const openQuiz = () => dispatch({ type: "OPEN_QUIZ" });
   const closeQuiz = () => dispatch({ type: "CLOSE_QUIZ" });
-  const answerQuestion = (questionIndex: number, option: QuizOption) =>
+  const answerQuestion = (questionIndex: number, option: QuizOptionType) =>
     dispatch({ type: "ANSWER_QUESTION", payload: { questionIndex, option } });
   const previousQuestion = () => dispatch({ type: "PREVIOUS_QUESTION" });
+  const nextQuestion = () => dispatch({ type: "NEXT_QUESTION" });
   const resetQuiz = () => dispatch({ type: "RESET_QUIZ" });
 
   const getCurrentQuestion = () => state.questions[state.currentQuestionIndex];
@@ -48,6 +50,7 @@ export function QuizProvider({ children }: { children: ReactNode }) {
     closeQuiz,
     answerQuestion,
     previousQuestion,
+    nextQuestion,
     resetQuiz,
     getCurrentQuestion,
     getPreviousAnswer,

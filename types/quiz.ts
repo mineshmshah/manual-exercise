@@ -1,4 +1,4 @@
-export interface QuizOption {
+export interface QuizOptionType {
   display: string;
   value: string | boolean;
   isRejection: boolean;
@@ -7,13 +7,13 @@ export interface QuizOption {
 export interface QuizQuestion {
   question: string;
   type: "ChoiceType";
-  options: QuizOption[];
+  options: QuizOptionType[];
 }
 
 export interface QuizAnswer {
   questionIndex: number;
   selectedValue: string | boolean;
-  selectedOption: QuizOption;
+  selectedOption: QuizOptionType;
 }
 
 export interface QuizState {
@@ -30,7 +30,7 @@ export type QuizAction =
   | { type: "CLOSE_QUIZ" }
   | {
       type: "ANSWER_QUESTION";
-      payload: { questionIndex: number; option: QuizOption };
+      payload: { questionIndex: number; option: QuizOptionType };
     }
   | { type: "NEXT_QUESTION" }
   | { type: "PREVIOUS_QUESTION" }

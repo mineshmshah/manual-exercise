@@ -1,5 +1,5 @@
 import { quizReducer, initialQuizState } from "@/lib/quizReducer";
-import { QuizAction, QuizState, QuizOption } from "@/types/quiz";
+import { QuizAction, QuizState, QuizOptionType } from "@/types/quiz";
 
 describe("quizReducer", () => {
   let initialState: QuizState;
@@ -31,7 +31,7 @@ describe("quizReducer", () => {
   describe("ANSWER_QUESTION action", () => {
     it("should add answer and advance to next question", () => {
       const openState = { ...initialState, isOpen: true };
-      const option: QuizOption = {
+      const option: QuizOptionType = {
         display: "Test Option",
         value: "test",
         isRejection: false,
@@ -54,7 +54,7 @@ describe("quizReducer", () => {
 
     it("should set isRejected to true for rejection options", () => {
       const openState = { ...initialState, isOpen: true };
-      const rejectionOption: QuizOption = {
+      const rejectionOption: QuizOptionType = {
         display: "Rejection Option",
         value: "reject",
         isRejection: true,
@@ -86,7 +86,7 @@ describe("quizReducer", () => {
         ],
       };
 
-      const newOption: QuizOption = {
+      const newOption: QuizOptionType = {
         display: "New Option",
         value: "new",
         isRejection: false,
@@ -103,17 +103,36 @@ describe("quizReducer", () => {
     });
 
     it("should set isCompleted when answering last question", () => {
+      // Create a state with 3 questions where we've already answered 0 and 1
       const nearEndState = {
         ...initialState,
         isOpen: true,
-        currentQuestionIndex: 2, // Last question (assuming 3 questions)
+        currentQuestionIndex: 2, // Last question index (in a 3-question quiz)
+        questions: [
+          { question: "Q1", options: [], type: "ChoiceType" },
+          { question: "Q2", options: [], type: "ChoiceType" },
+          { question: "Q3", options: [], type: "ChoiceType" },
+        ],
+        answers: [
+          {
+            questionIndex: 0,
+            selectedValue: "a",
+            selectedOption: { display: "A", value: "a", isRejection: false },
+          },
+          {
+            questionIndex: 1,
+            selectedValue: "b",
+            selectedOption: { display: "B", value: "b", isRejection: false },
+          },
+        ],
       };
 
-      const option: QuizOption = {
+      const option: QuizOptionType = {
         display: "Final Option",
         value: "final",
         isRejection: false,
       };
+
       const action: QuizAction = {
         type: "ANSWER_QUESTION",
         payload: { questionIndex: 2, option },

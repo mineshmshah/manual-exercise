@@ -1,5 +1,5 @@
 import {
-  QuizOption,
+  QuizOptionType,
   QuizQuestion,
   QuizAnswer,
   QuizState,
@@ -10,7 +10,7 @@ import {
 describe("Quiz Types", () => {
   describe("QuizOption", () => {
     it("should have correct structure", () => {
-      const option: QuizOption = {
+      const option: QuizOptionType = {
         display: "Test Display",
         value: "test_value",
         isRejection: false,
@@ -22,7 +22,7 @@ describe("Quiz Types", () => {
     });
 
     it("should support boolean values", () => {
-      const option: QuizOption = {
+      const option: QuizOptionType = {
         display: "Yes",
         value: true,
         isRejection: true,
@@ -33,7 +33,7 @@ describe("Quiz Types", () => {
     });
 
     it("should support HTML content in display", () => {
-      const option: QuizOption = {
+      const option: QuizOptionType = {
         display: '<img alt="Test" src="test.png" />',
         value: "image_option",
         isRejection: false,
@@ -73,7 +73,7 @@ describe("Quiz Types", () => {
 
   describe("QuizAnswer", () => {
     it("should have correct structure", () => {
-      const option: QuizOption = {
+      const option: QuizOptionType = {
         display: "Selected Option",
         value: "selected",
         isRejection: false,
@@ -91,7 +91,7 @@ describe("Quiz Types", () => {
     });
 
     it("should support boolean selectedValue", () => {
-      const option: QuizOption = {
+      const option: QuizOptionType = {
         display: "No",
         value: false,
         isRejection: false,
@@ -175,7 +175,7 @@ describe("Quiz Types", () => {
     });
 
     it("should support ANSWER_QUESTION action with payload", () => {
-      const option: QuizOption = {
+      const option: QuizOptionType = {
         display: "Test",
         value: "test",
         isRejection: false,
