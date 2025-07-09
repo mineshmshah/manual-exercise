@@ -24,7 +24,7 @@ describe("QuizOption", () => {
     const { getByRole } = render(
       <QuizOption option={baseOption} onSelect={onSelect} isSelected={false} />,
     );
-    fireEvent.click(getByRole("button"));
+    fireEvent.click(getByRole("radio"));
     expect(onSelect).toHaveBeenCalled();
   });
 
@@ -32,7 +32,7 @@ describe("QuizOption", () => {
     const { getByRole } = render(
       <QuizOption option={baseOption} onSelect={jest.fn()} isSelected={true} />,
     );
-    expect(getByRole("button")).toHaveClass("border-blue-500");
+    expect(getByRole("radio")).toHaveClass("border-blue-500");
   });
 
   it("renders image option correctly", () => {

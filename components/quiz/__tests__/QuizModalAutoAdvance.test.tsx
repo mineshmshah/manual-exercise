@@ -71,7 +71,7 @@ describe("QuizModal auto-advance", () => {
 
     // Find the option buttons
     const options = screen
-      .getAllByRole("button")
+      .getAllByRole("radio")
       .filter((btn) => btn.textContent?.includes("Option"));
 
     // Verify we have options

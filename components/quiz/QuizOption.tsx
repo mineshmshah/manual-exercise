@@ -7,12 +7,16 @@ interface QuizOptionProps {
   option: QuizOptionType;
   onSelect: () => void;
   isSelected?: boolean;
+  index?: number;
+  total?: number;
 }
 
 export function QuizOption({
   option,
   onSelect,
   isSelected = false,
+  index,
+  total,
 }: QuizOptionProps) {
   // Function to parse image from HTML string
   // This avoids using dangerouslySetInnerHTML directly
@@ -60,6 +64,10 @@ export function QuizOption({
   return (
     <button
       onClick={onSelect}
+      role="radio"
+      aria-checked={isSelected}
+      data-position={index !== undefined ? index + 1 : undefined}
+      data-total={total}
       className={`mb-4 w-full rounded-lg border p-4 text-left transition-colors ${
         isSelected
           ? "border-blue-500 bg-blue-50 ring-2 ring-blue-200"
