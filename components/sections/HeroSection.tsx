@@ -5,18 +5,29 @@ import Button from "../ui/Button";
 import Image from "next/image";
 import type { HeroSectionData } from "@/types/heroSection";
 
+export interface ActionMapType {
+  [key: string]: () => void;
+}
+
 export default function HeroSection({
   title,
   description,
   button,
   backgroundImage = "/images/hero-bg.png",
   backgroundImageAlt = "Hero background",
-}: HeroSectionData) {
+  actionMap = {},
+}: HeroSectionData & { actionMap?: ActionMapType }) {
   const handleButtonClick = () => {
     if (typeof button.action === "function") {
       button.action();
     } else if (typeof button.action === "string") {
-      window.location.href = button.action;
+      // Check if the action exists in the actionMap
+      if (actionMap[button.action]) {
+        actionMap[button.action]();
+      } else {
+        // Fallback to treating it as a URL
+        window.location.href = button.action;
+      }
     }
   };
 

@@ -1,3 +1,5 @@
+// Serves as documenation, contract validation and Type Safety Verification
+
 import type { HeroSectionData } from "../heroSection";
 
 describe("HeroSection Types", () => {
@@ -88,27 +90,22 @@ describe("HeroSection Types", () => {
 
     it("should require title, description, and button.text", () => {
       // These should cause TypeScript compilation errors if uncommented:
-
       // Missing title
       // const missingTitle: HeroSectionData = {
       //   description: "Test",
       //   button: { text: "Test" },
       // };
-
       // Missing description
       // const missingDescription: HeroSectionData = {
       //   title: "Test",
       //   button: { text: "Test" },
       // };
-
       // Missing button.text
       // const missingButtonText: HeroSectionData = {
       //   title: "Test",
       //   description: "Test",
       //   button: {},
       // };
-
-      expect(true).toBe(true); // Placeholder test
     });
   });
 

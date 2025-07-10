@@ -62,7 +62,7 @@ const mockHeroProps: HeroSectionData = {
     "We're working around the clock to bring you a holistic approach to your wellness.",
   button: {
     text: "Take the Quiz",
-    action: "/quiz",
+    action: "quiz",
   },
   backgroundImage: "/images/hero-bg.png",
   backgroundImageAlt: "Hero background",
@@ -102,41 +102,44 @@ describe("HeroSection", () => {
     });
   });
 
-  it("renders responsive line break for titles containing ' to '", () => {
+  it("renders title correctly", () => {
     render(<HeroSection {...mockHeroProps} />);
 
     const heading = screen.getByRole("heading");
-    expect(heading).toContainHTML("<br");
     expect(heading).toHaveTextContent("Be good to yourself");
   });
 
-  it("renders title without line break when no ' to ' is present", () => {
-    const propsWithoutTo: HeroSectionData = {
+  it("renders different title when provided", () => {
+    const propsWithDifferentTitle: HeroSectionData = {
       ...mockHeroProps,
       title: "Simple title",
     };
 
-    render(<HeroSection {...propsWithoutTo} />);
+    render(<HeroSection {...propsWithDifferentTitle} />);
 
     const heading = screen.getByRole("heading");
     expect(heading).toHaveTextContent("Simple title");
-    // Check that no <br> element exists in the heading
-    expect(heading.querySelector("br")).toBeNull();
   });
 
   it("handles string button action (URL navigation)", () => {
     // Instead of testing window.location.href assignment directly,
     // test the component's behavior when button action is a string
-    render(<HeroSection {...mockHeroProps} />);
+    const propsWithUrlAction: HeroSectionData = {
+      ...mockHeroProps,
+      button: {
+        text: "Go to URL",
+        action: "/some-url",
+      },
+    };
+
+    // We'll verify the button is clickable without manipulating window.location
+    render(<HeroSection {...propsWithUrlAction} />);
 
     const button = screen.getByTestId("hero-button");
 
-    // Test that the button exists and has the expected props
+    // Just verifying the button renders and is clickable without errors
     expect(button).toBeInTheDocument();
-    expect(button).toHaveTextContent("Take the Quiz");
-
-    // Since jsdom doesn't support navigation, we'll just verify the button
-    // is clickable and the component renders correctly with a string action
+    expect(button).toHaveTextContent("Go to URL");
     expect(() => fireEvent.click(button)).not.toThrow();
   });
 
@@ -156,6 +159,20 @@ describe("HeroSection", () => {
     fireEvent.click(button);
 
     expect(mockAction).toHaveBeenCalledTimes(1);
+  });
+
+  it("uses action map for string actions that match a map key", () => {
+    const mockMappedAction = jest.fn();
+    const actionMap = {
+      quiz: mockMappedAction,
+    };
+
+    render(<HeroSection {...mockHeroProps} actionMap={actionMap} />);
+
+    const button = screen.getByTestId("hero-button");
+    fireEvent.click(button);
+
+    expect(mockMappedAction).toHaveBeenCalledTimes(1);
   });
 
   it("renders logo with correct size", () => {

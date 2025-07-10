@@ -38,7 +38,6 @@ describe("quizService", () => {
     // Call the function
     const result = await fetchQuizData();
 
-    // Assertions
     expect(global.fetch).toHaveBeenCalledWith(
       "https://manual-case-study.herokuapp.com/questionnaires/972423.json",
       expect.objectContaining({

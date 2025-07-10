@@ -3,7 +3,7 @@
   "description": "We're working around the clock to bring you a holistic approach to your wellness. From top to bottom, inside and out.",
   "button": {
     "text": "Take the Quiz",
-    "action": "/quiz"
+    "action": "quiz"
   },
   "backgroundImage": "/images/hero-bg.png",
   "backgroundImageAlt": "Hero background"

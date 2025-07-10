@@ -1,3 +1,5 @@
+// Tests how the QuizProvider initializes with different data sources.
+
 import { render, screen } from "@testing-library/react";
 import { QuizProvider, useQuiz } from "@/contexts/QuizContext";
 import { QuizData } from "@/types/quiz";

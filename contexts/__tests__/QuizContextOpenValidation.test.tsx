@@ -1,3 +1,5 @@
+// Focuses on testing the validation logic specifically when opening the quiz. Dummy component used.
+
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { QuizProvider, useQuiz } from "@/contexts/QuizContext";
 import React from "react";

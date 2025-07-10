@@ -1,3 +1,5 @@
+// Serves as documenation, contract validation and Type Safety Verification
+
 import type { ContentBlockData, ContentBlockProps } from "../contentBlock";
 
 describe("ContentBlock Types", () => {

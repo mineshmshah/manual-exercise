@@ -1,3 +1,5 @@
+//Specifically tests how the initial state is set up based on different localStorage scenarios.
+
 import { render, screen } from "@testing-library/react";
 import { QuizProvider, useQuiz } from "@/contexts/QuizContext";
 import React from "react";

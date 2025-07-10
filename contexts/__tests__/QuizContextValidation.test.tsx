@@ -1,3 +1,4 @@
+// Used to test valid data is stored in local storage or is passed in when mounted to context -Comprehensive tests for all validation logic in the quiz context.
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -428,8 +429,6 @@ describe("QuizContext validation", () => {
       }),
     );
   });
-
-  // Additional test cases for more comprehensive validation coverage
 
   test("should handle null or undefined selectedOption in answers", () => {
     // Create a saved state with invalid answer structure (missing selectedOption)

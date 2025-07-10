@@ -11,46 +11,40 @@ import { useQuiz } from "@/contexts/QuizContext";
 import { useHasMounted } from "@/hooks/useHasMounted";
 
 export default function Home() {
-  // Get quiz state and openQuiz function
   const { openQuiz, state } = useQuiz();
   const hasMounted = useHasMounted();
 
-  // Determine button text based on quiz state - but only after client-side hydration
-  const getButtonText = () => {
-    if (!hasMounted) {
-      // During server-side rendering or before hydration, use the default text
-      return "Take the Quiz";
-    }
+  // Get dynamic button text based on quiz state
+  const buttonText = hasMounted
+    ? state.isCompleted
+      ? "Show Results"
+      : state.answers?.length > 0
+        ? "Continue Quiz"
+        : "Take the Quiz"
+    : "Take the Quiz";
 
-    if (state.isCompleted) {
-      return "Show Results";
-    } else if (state.answers?.length > 0) {
-      return "Continue Quiz";
-    }
-    return "Take the Quiz";
+  // Create an action map for the hero section
+  const actionMap = {
+    quiz: openQuiz,
   };
 
-  // Type assertions to ensure proper typing from JSON imports
-  const typedContentBlocks = contentBlocksData as ContentBlockData[];
-  const typedHeroData = heroSectionData as HeroSectionData;
-
-  // Create hero data with openQuiz function for the button
-  const heroDataWithQuizAction: HeroSectionData = {
-    ...typedHeroData,
+  // Prepare data with proper typing
+  const heroData: HeroSectionData = {
+    ...(heroSectionData as HeroSectionData),
     button: {
-      ...typedHeroData.button,
-      text: getButtonText(),
-      action: openQuiz, // Pass the function instead of string
+      ...(heroSectionData as HeroSectionData).button,
+      text: buttonText,
+      // Keep the original action from JSON - will be resolved via actionMap
     },
   };
 
   return (
     <>
       <main>
-        <HeroSection {...heroDataWithQuizAction} />
+        <HeroSection {...heroData} actionMap={actionMap} />
         <MultiRowContent
           title="What can we help with"
-          contentBlocks={typedContentBlocks}
+          contentBlocks={contentBlocksData as ContentBlockData[]}
         />
       </main>
       <FooterSection />

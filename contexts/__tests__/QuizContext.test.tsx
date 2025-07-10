@@ -1,3 +1,5 @@
+//  Tests the core functionality of the QuizContext and its helper functions. Tests using a dumy component to see changes
+
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { QuizProvider, useQuiz } from "@/contexts/QuizContext";
 import React from "react";

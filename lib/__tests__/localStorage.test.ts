@@ -59,6 +59,7 @@ describe("localStorage utility functions", () => {
   };
 
   test("saveQuizState should save state to localStorage", () => {
+    // Call saveQuizState once
     saveQuizState(testQuizState);
 
     // Verify localStorage.setItem was called with the right key
@@ -67,25 +68,16 @@ describe("localStorage utility functions", () => {
       expect.any(String),
     );
 
-    // We know setItem was called, so we can just add a direct assertion
-    // This will validate the structure without having to access mock.calls directly
+    // Get the mock function
+    const setItemMock = localStorageMock.setItem as jest.Mock;
 
-    // Create a temp variable to hold what localStorage.setItem would have been called with
-    let savedJSON = "";
+    // Type assertion for the calls property
+    const mockCalls = setItemMock.mock.calls as Array<[string, string]>;
 
-    // Override the mock implementation temporarily to capture the saved data
-    (localStorageMock.setItem as jest.Mock).mockImplementationOnce(
-      (key: string, value: string) => {
-        if (key === "quiz_state") {
-          savedJSON = value;
-        }
-      },
-    );
+    // Get the JSON string from the first call's second argument
+    const savedJSON = mockCalls[0][1];
 
-    // Call saveQuizState again with test data
-    saveQuizState(testQuizState);
-
-    // Now parse the captured JSON
+    // Parse the JSON for validation
     const savedData = JSON.parse(savedJSON) as Record<string, unknown>;
 
     // Verify we saved the expected properties
