@@ -77,6 +77,8 @@ export function quizReducer(state: QuizState, action: QuizAction): QuizState {
     case "RESET_QUIZ":
       return {
         ...initialQuizState,
+        // Preserve the current questions when resetting
+        questions: state.questions,
       };
 
     default:

@@ -47,12 +47,18 @@ export function QuizModal() {
     }
   }, [state.currentQuestionIndex, currentQuestion]);
 
-  if (!state.isOpen || !currentQuestion) {
+  if (!state.isOpen) {
     return null;
   }
 
+  // If the quiz is completed, show the results
   if (state.isCompleted) {
     return <QuizResults />;
+  }
+
+  // If there's no current question, return null
+  if (!currentQuestion) {
+    return null;
   }
 
   // Determine if the current question has images in options - used for layout

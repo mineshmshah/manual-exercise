@@ -1,6 +1,14 @@
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import { QuizProvider, useQuiz } from "@/contexts/QuizContext";
 import React from "react";
+import * as localStorage from "@/lib/localStorage";
+
+// Mock localStorage module
+jest.mock("@/lib/localStorage", () => ({
+  saveQuizState: jest.fn(),
+  loadQuizState: jest.fn(() => null), // Default to returning null (no saved state)
+  clearQuizState: jest.fn(),
+}));
 
 // Test component that uses the quiz context
 function TestComponent() {
@@ -66,6 +74,13 @@ function renderWithProvider() {
 }
 
 describe("QuizContext", () => {
+  beforeEach(() => {
+    // Reset mocks before each test
+    jest.clearAllMocks();
+    // Default to no saved state
+    (localStorage.loadQuizState as jest.Mock).mockReturnValue(null);
+  });
+
   describe("initial state", () => {
     it("should have correct initial state", () => {
       renderWithProvider();

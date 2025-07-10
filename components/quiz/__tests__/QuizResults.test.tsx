@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { QuizResults } from "../QuizResults";
 import React from "react";
 
@@ -12,6 +12,7 @@ import { useQuiz } from "@/contexts/QuizContext";
 const mockUseQuiz = useQuiz as jest.MockedFunction<typeof useQuiz>;
 
 function renderWithProvider(stateOverrides = {}) {
+  const mockResetQuiz = jest.fn();
   // Set up mock implementation for the test
   mockUseQuiz.mockReturnValue({
     state: {
@@ -43,11 +44,14 @@ function renderWithProvider(stateOverrides = {}) {
     answerQuestion: jest.fn(),
     previousQuestion: jest.fn(),
     nextQuestion: jest.fn(),
-    resetQuiz: jest.fn(),
+    resetQuiz: mockResetQuiz,
     getCurrentQuestion: jest.fn(),
     getPreviousAnswer: jest.fn(),
   });
-  return render(<QuizResults />);
+  return {
+    ...render(<QuizResults />),
+    mockResetQuiz,
+  };
 }
 
 describe("QuizResults", () => {
@@ -76,5 +80,12 @@ describe("QuizResults", () => {
       screen.getByText(/unfortunately, we are unable to prescribe/i),
     ).toBeInTheDocument();
     expect(screen.queryByText(/your answers/i)).not.toBeInTheDocument();
+  });
+
+  it("resets quiz when Try Again is clicked", () => {
+    const { mockResetQuiz } = renderWithProvider();
+    const tryAgainButton = screen.getByText("Try Again");
+    fireEvent.click(tryAgainButton);
+    expect(mockResetQuiz).toHaveBeenCalledTimes(1);
   });
 });
