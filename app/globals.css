@@ -10,13 +10,14 @@
   --color-foreground: var(--foreground);
   --font-tt-norms: var(--font-tt-norms);
 
-  --color-father: #0b3b3c;
-  --color-son: #7e0707;
-  --color-grandfather: #bdcdc5;
-  --color-grandfather-light: #e8efe9;
-  --color-grandfather-dark: #6d8a83;
-  --color-grandfather-lightest: #f3f7f4;
-  --color-grandfather-darkest: #a7b69f;
+  /* Manual Brand Colors - Family System */
+  --color-father: #0b3b3c; /* Father (Hero) - main text */
+  --color-son: #7e0707; /* Son (Accent) - buttons */
+  --color-grandfather: #bdcdc5; /* Grandfather - borders */
+  --color-grandfather-light: #e8efe9; /* Grandfather (-60%) - page bg */
+  --color-grandfather-dark: #6d8a83; /* Grandfather (+30%) - secondary text */
+  --color-grandfather-lightest: #f3f7f4; /* Grandfather (-80%) - large numbers */
+  --color-grandfather-darkest: #a7b69f; /* Grandfather (+60%) - Hero abd Image Background */
   --breakpoint-2xl: 88rem;
 }
 
@@ -67,6 +68,10 @@ body {
     padding-top: 2rem;
     padding-bottom: 2rem;
   }
+
+  .content-block.content-block--reverse {
+    flex-direction: row-reverse;
+  }
 }
 
 @media (min-width: 1280px) {
@@ -75,10 +80,6 @@ body {
     padding-top: 4.25rem;
     padding-bottom: 4.25rem;
   }
-}
-
-.content-block--reverse {
-  flex-direction: row-reverse;
 }
 
 /* Image styles */
