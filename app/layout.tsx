@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { QuizProvider } from "@/contexts/QuizContext";
-import { QuizModal } from "@/components/quiz/QuizModal";
 
 const ttNorms = localFont({
   src: [
@@ -34,12 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={ttNorms.variable}>
-      <body className="font-tt-norms antialiased">
-        <QuizProvider>
-          {children}
-          <QuizModal />
-        </QuizProvider>
-      </body>
+      <body className="font-tt-norms antialiased">{children}</body>
     </html>
   );
 }

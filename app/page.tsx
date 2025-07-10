@@ -1,40 +1,26 @@
-"use client";
+import { fetchQuizData } from "@/lib/quizService";
+import LandingPage from "@/components/pages/LandingPage";
+import { QuizProvider } from "@/contexts/QuizContext";
+import { QuizModal } from "@/components/quiz/QuizModal";
 
-import HeroSection from "@/components/sections/HeroSection";
-import FooterSection from "@/components/sections/FooterSection";
-import MultiRowContent from "@/components/sections/MultiRowContent";
-import contentBlocksData from "@/data/contentBlocks.json";
-import heroSectionData from "@/data/heroSection.json";
-import { ContentBlockData } from "@/types/contentBlock";
-import { HeroSectionData } from "@/types/heroSection";
-import { useQuiz } from "@/contexts/QuizContext";
-
-export default function Home() {
-  const { openQuiz } = useQuiz();
-
-  // Type assertions to ensure proper typing from JSON imports
-  const typedContentBlocks = contentBlocksData as ContentBlockData[];
-  const typedHeroData = heroSectionData as HeroSectionData;
-
-  // Create hero data with openQuiz function for the button
-  const heroDataWithQuizAction: HeroSectionData = {
-    ...typedHeroData,
-    button: {
-      ...typedHeroData.button,
-      action: openQuiz, // Pass the function instead of string
-    },
-  };
+// Add error handling to prevent page rendering failure
+export default async function Home() {
+  // Fetch quiz data on the server with proper error handling
+  let quizData;
+  try {
+    quizData = await fetchQuizData();
+  } catch (error) {
+    // If fetchQuizData fails despite its internal error handling,
+    // we'll still render the page without quiz data.
+    // The QuizProvider will use initialQuizState from quizReducer.
+    console.error("Failed to fetch quiz data in page component:", error);
+    quizData = undefined;
+  }
 
   return (
-    <>
-      <main>
-        <HeroSection {...heroDataWithQuizAction} />
-        <MultiRowContent
-          title="What can we help with"
-          contentBlocks={typedContentBlocks}
-        />
-      </main>
-      <FooterSection />
-    </>
+    <QuizProvider initialQuizData={quizData}>
+      <LandingPage />
+      <QuizModal />
+    </QuizProvider>
   );
 }

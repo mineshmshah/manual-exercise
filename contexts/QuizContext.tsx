@@ -7,6 +7,7 @@ import {
   QuizOptionType,
   QuizQuestion,
   QuizAnswer,
+  QuizData,
 } from "@/types/quiz";
 import { quizReducer, initialQuizState } from "@/lib/quizReducer";
 
@@ -24,12 +25,24 @@ interface QuizContextProps {
   getPreviousAnswer: (questionIndex: number) => QuizAnswer | undefined;
 }
 
+interface QuizProviderProps {
+  children: ReactNode;
+  initialQuizData?: QuizData;
+}
+
 // Create context
 
 const QuizContext = createContext<QuizContextProps | undefined>(undefined);
 
-export function QuizProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(quizReducer, initialQuizState);
+export function QuizProvider({ children, initialQuizData }: QuizProviderProps) {
+  const customInitialState = initialQuizData
+    ? {
+        ...initialQuizState,
+        questions: initialQuizData.questions,
+      }
+    : initialQuizState;
+
+  const [state, dispatch] = useReducer(quizReducer, customInitialState);
 
   const openQuiz = () => dispatch({ type: "OPEN_QUIZ" });
   const closeQuiz = () => dispatch({ type: "CLOSE_QUIZ" });

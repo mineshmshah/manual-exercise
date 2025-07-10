@@ -1,8 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import Home from "@/app/page";
-import { QuizProvider } from "@/contexts/QuizContext";
 import type { HeroSectionData } from "@/types/heroSection";
 import type { ContentBlockData } from "@/types/contentBlock";
+import LandingPage from "@/components/pages/LandingPage";
 
 // Mock the components to focus on integration testing
 jest.mock("@/components/sections/HeroSection", () => {
@@ -45,18 +44,38 @@ jest.mock("@/components/sections/FooterSection", () => {
   };
 });
 
-// Helper function to render Home with QuizProvider
-function renderHomeWithProvider() {
-  return render(
-    <QuizProvider>
-      <Home />
-    </QuizProvider>,
-  );
-}
+// Mock the quiz context hook
+jest.mock("@/contexts/QuizContext", () => {
+  return {
+    useQuiz: () => ({
+      openQuiz: jest.fn(),
+      state: { isOpen: false },
+    }),
+    QuizProvider: ({ children }: { children: React.ReactNode }) => (
+      <div data-testid="quiz-provider">{children}</div>
+    ),
+  };
+});
 
-describe("Home Page Integration", () => {
+// Mock the quiz context for testing
+jest.mock("@/data/contentBlocks.json", () => [
+  { id: "1", title: "Hair Loss", category: "Hair" },
+  { id: "2", title: "Skin Care", category: "Skin" },
+]);
+
+jest.mock("@/data/heroSection.json", () => ({
+  title: "Be good to yourself",
+  description:
+    "We're working around the clock to bring you a holistic approach to your wellness.",
+  button: {
+    text: "Take the Quiz",
+    action: "openQuiz",
+  },
+}));
+
+describe("Page Integration", () => {
   it("renders the main page structure", () => {
-    renderHomeWithProvider();
+    render(<LandingPage />);
 
     expect(screen.getByRole("main")).toBeInTheDocument();
     expect(screen.getByTestId("hero-section")).toBeInTheDocument();
@@ -65,7 +84,7 @@ describe("Home Page Integration", () => {
   });
 
   it("passes correct data to HeroSection component", () => {
-    renderHomeWithProvider();
+    render(<LandingPage />);
 
     const heroSection = screen.getByTestId("hero-section");
     expect(heroSection).toBeInTheDocument();
@@ -77,7 +96,7 @@ describe("Home Page Integration", () => {
   });
 
   it("passes correct data to MultiRowContent component", () => {
-    renderHomeWithProvider();
+    render(<LandingPage />);
 
     const multiRowSection = screen.getByTestId("multi-row-content");
     expect(multiRowSection).toBeInTheDocument();
@@ -91,7 +110,7 @@ describe("Home Page Integration", () => {
   });
 
   it("imports and uses JSON data correctly", () => {
-    renderHomeWithProvider();
+    render(<LandingPage />);
 
     // This test verifies that the JSON data is being imported and used
     // If the components render with the expected content, the imports are working
@@ -102,14 +121,14 @@ describe("Home Page Integration", () => {
   it("applies type assertions correctly", () => {
     // This test ensures that the type assertions in the component work
     // If the page renders without TypeScript errors, the assertions are correct
-    renderHomeWithProvider();
+    render(<LandingPage />);
 
     expect(screen.getByTestId("hero-section")).toBeInTheDocument();
     expect(screen.getByTestId("multi-row-content")).toBeInTheDocument();
   });
 
   it("renders components in correct order", () => {
-    renderHomeWithProvider();
+    render(<LandingPage />);
 
     const main = screen.getByRole("main");
     const heroSection = screen.getByTestId("hero-section");
@@ -140,6 +159,6 @@ describe("Home Page Integration", () => {
 
   it("handles data imports without errors", () => {
     // Test that the page can render without import errors
-    expect(() => renderHomeWithProvider()).not.toThrow();
+    expect(() => render(<LandingPage />)).not.toThrow();
   });
 });

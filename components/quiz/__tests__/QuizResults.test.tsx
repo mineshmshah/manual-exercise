@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import { QuizResults } from "../QuizResults";
-// Remove unused import
 import React from "react";
 
 // Mock the entire context module
