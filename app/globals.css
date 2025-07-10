@@ -150,14 +150,6 @@ body {
   transform: translateY(1.5rem);
 }
 
-.content-block__number--reverse {
-  transform: translateX(3.75rem);
-}
-
-.content-block__number--normal {
-  transform: translateX(-5rem);
-}
-
 @media (min-width: 1024px) {
   .content-block__number--reverse {
     transform: translateX(6.25rem);
