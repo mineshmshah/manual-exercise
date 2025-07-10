@@ -2,7 +2,7 @@
 
 A Next.js 15 application featuring a responsive landing page with an interactive hair loss quiz to help users find the right treatment solution. Deployed to the following link:
 
-[Click here to see website]([/guides/content/editing-an-existing-page#modifying-front-matter](https://manual-exercise-v1.vercel.app/))
+[Click here to see website](https://manual-exercise-v1.vercel.app/)
 
 
 ## Features
