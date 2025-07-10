@@ -116,9 +116,3 @@ This application is built using a component-based architecture with Next.js 15. 
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Design inspiration from [manual.co](https://www.manual.co)
-- Next.js team for the amazing framework
-- All contributors who have helped improve this codebase
