@@ -12,7 +12,7 @@ A Next.js 15 application featuring a responsive landing page with an interactive
 - **Responsive Design**: Fully responsive layout based on manual.co styling
 - **Accessibility Focus**: Designed with accessibility in mind
 - **Robust Error Handling**: Graceful handling of edge cases and errors
-- **Eslint and Commit Management**: Created strict linting rules and added commit linting and husky for cleaner commits
+- **Eslint and Commit Management**: Created strict linting rules and added commit linting and husky for cleaner commits!
 
 ## Tech Stack
 
